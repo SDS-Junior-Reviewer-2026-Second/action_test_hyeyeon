@@ -16,23 +16,13 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build-1:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        test-group : [1,2,3]
-        
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
+      - name: Build 1
+        run: echo "build-1"
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
@@ -41,19 +31,11 @@ jobs:
 
           
   build2:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
+      - name: Build 2
+        run: echo "build-2"
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
@@ -61,16 +43,48 @@ jobs:
 
           
   RedRed:
-    needs: [build, build2]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6.1.0
+      - name : Build 3
+        run: echo "build-3"
 
-      - name : Setup Python
-        uses: actions/setup-python@v7.0.0
-        with:
-          python-version: "3.14"
-      - name : Run KFC script
-        run: python .github/scripts/kfc.py
+  integration-1:
+    needs: [ build-1 ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Integeration 1
+        run: echo "integration-1"
+        
+  integration-2:
+    needs: [ build-1 ]
+    runs-on: ubuntu-latest
+    steps:
+      - name : Integeration 2
+      run : exho "integration-2"
+      
+  lint:
+    needs: [ build-2 ]
+    runs-on : ubuntu-latest
+    steps:
+    - name: Lint
+      run: exho "lint"
+
+  unit-test:
+    needs: [build-3]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test-group : [1,2,3]
+     steps:
+     - name : Unit Test $ {{ matrix.test-group }}
+       run: echo "unit-test group ${{matrix.test-group}}"
+
+deploy:
+  needs: [integration-1, integration-2, lint, unit-test ]
+  runs-on : ubuntu-latest
+  steps:
+  - name : Deploy
+    run : echo "deploy"
         
     
