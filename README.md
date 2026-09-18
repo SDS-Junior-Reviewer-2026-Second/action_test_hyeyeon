@@ -10,4 +10,4 @@ action 테스트
 
 양꼬치랑 칭따오랑 꿔바로우랑 온면이랑 하이볼 먹을거양 ><
 
-<img src="https://i.pinimg.com/236x/5d/3d/63/5d3d63f568ba3451c368a831dc9b5d87.jpg">
+<img src="https://i.pinimg.com/236x/7d/e2/ee/7de2ee520b288a966cd42194c7aa2d43.jpg">
