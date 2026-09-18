@@ -37,5 +37,5 @@ jobs:
           aws ses send-email \
           --from "mincoding@naver.com" \
           --destination "ToAddresses=sejin.choi@mincoding.co.kr" \
-          --message "Subject={Data=익명},Body={Text={Data=이것 좀 구경해주세요 \n https://sds-junior-reviewer-2026-second.github.io/ptest-Jihun/ }}"
+          --message "Subject={Data=테스트},Body={Text={Data=테스트}}"
           
