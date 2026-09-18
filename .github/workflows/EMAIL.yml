@@ -37,5 +37,5 @@ jobs:
           aws ses send-email \
           --from "mincoding@naver.com" \
           --destination "ToAddresses=sejin.choi@mincoding.co.kr" \
-          --message "Subject={Data=밸런스게임 들어갑니다},Body={Text={Data=지리산 반달곰의 저녁밥 되기 VS 말레이 곰의 저녁밥 되기}}"
+          --message "Subject={Data=저 분 야근하신답니다},Body={Text={Data=제 메일 아래 계신 분 야근하신답니다}}"
           
