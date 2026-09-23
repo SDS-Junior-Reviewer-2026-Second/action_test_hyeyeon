@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Team Git DNA — GuestHouse for SVP</title>
+<style>
+  :root{
+    --bg:#090b14; --panel:#101425; --panel2:#0c101d; --text:#f6f7fb; --muted:#a8afc3;
+    --line:#252b41; --pink:#ef4294; --pink2:#ff6fb4; --blue:#69c8ff; --violet:#b78cff;
+    --green:#5ae0bd; --amber:#ffd16a;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:
+    radial-gradient(900px 450px at 10% -5%,rgba(239,66,148,.18),transparent 55%),
+    radial-gradient(800px 500px at 100% 15%,rgba(105,200,255,.10),transparent 55%),var(--bg);
+    color:var(--text);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;line-height:1.55}
+  .wrap{max-width:1320px;margin:auto;padding:42px 22px 64px}
+  .hero{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;align-items:stretch;margin-bottom:24px}
+  .hero-card,.summary{background:linear-gradient(180deg,rgba(20,25,45,.93),rgba(12,16,29,.93));border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:0 20px 70px rgba(0,0,0,.24)}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink2);font-weight:800}
+  h1{font-size:clamp(30px,4.4vw,58px);line-height:1.05;margin:10px 0 13px;letter-spacing:-.04em}
+  .desc{color:#c7ccda;max-width:780px;margin:0;font-size:16px}
+  .repo-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .pill{border:1px solid #303754;background:#0d1120;border-radius:999px;padding:9px 13px;color:#cbd2e3;font-size:13px}
+  .pill b{color:white}
+  .summary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-content:center}
+  .stat{border:1px solid #252c43;background:#0b0f1c;border-radius:18px;padding:17px}
+  .stat strong{display:block;font-size:28px;letter-spacing:-.03em}.stat span{font-size:12px;color:var(--muted)}
+  .toolbar{display:flex;justify-content:space-between;gap:16px;align-items:end;margin:30px 4px 16px}
+  .toolbar h2{margin:0;font-size:23px}.toolbar p{margin:4px 0 0;color:var(--muted);font-size:13px}
+  .legend{font-size:12px;color:#b7bdd0;text-align:right}.legend b{color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  .card{position:relative;overflow:hidden;background:linear-gradient(180deg,#13182b 0%,#0d111f 100%);border:1px solid #2b3148;border-radius:28px;padding:24px;box-shadow:0 15px 55px rgba(0,0,0,.23)}
+  .card::before{content:"";position:absolute;left:0;top:0;width:100%;height:3px;background:linear-gradient(90deg,var(--pink),var(--pink2),transparent 78%)}
+  .card-top{display:grid;grid-template-columns:82px 1fr auto;gap:16px;align-items:center}
+  .avatar{width:82px;height:82px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(145deg,#f04b9d,#cb2e7a);font-weight:900;font-size:34px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.1),0 10px 28px rgba(239,66,148,.18)}
+  .name{font-size:25px;font-weight:900;letter-spacing:-.03em}.alias{margin-top:3px;color:var(--pink2);font-weight:800;font-size:16px}.tagline{margin-top:4px;color:#b5bbca;font-size:14px}
+  .type{text-align:center}.type-code{padding:9px 12px;border-radius:13px;background:var(--pink);color:#15101a;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:20px;font-weight:900;letter-spacing:.08em}.type small{display:block;margin-top:6px;color:#7f879c;font-size:10px}
+  .split{display:flex;gap:8px;margin:18px 0}.split .chip{flex:1;background:#0b0f1c;border:1px solid #232a40;border-radius:14px;padding:11px 12px;font-size:12px;color:#9fa7bc}.split b{display:block;color:#fff;font-size:17px}
+  .bars{display:grid;gap:11px;margin-top:7px}.metric-head{display:flex;justify-content:space-between;gap:10px;font-size:13px}.metric-head span:first-child{color:#aeb5c7}.metric-head strong{font-weight:800}.track{height:10px;background:#090d18;border:1px solid #1b2235;border-radius:999px;overflow:hidden;margin-top:5px}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--pink),#8f86a7)}
+  .meme{margin:16px 0 2px;padding:12px 14px;border-radius:14px;background:linear-gradient(90deg,rgba(239,66,148,.14),rgba(183,140,255,.07));border:1px solid #3a2b48;color:#f4ddeb;font-weight:850;font-size:14px;letter-spacing:-.02em}.meme em{font-style:normal;color:var(--pink2)}
+  .signature{margin:14px 0 16px;border:1px solid #293149;border-left:4px solid var(--pink);border-radius:17px;padding:16px 16px 16px 18px;color:#d7dbe6;background:#0d111f;font-size:14px}.signature b{color:var(--pink2)}
+  .bullets{display:grid;gap:9px;margin:0;padding:0;list-style:none}.bullets li{color:#aeb5c8;font-size:13px;padding-left:19px;position:relative}.bullets li::before{content:"▸";position:absolute;left:0;color:var(--pink)}.bullets b{color:#e9ebf3}
+  .terminal{margin-top:16px;background:#070a10;border:1px solid #232a3e;border-radius:16px;padding:14px 16px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;color:#d4d9e6;overflow:hidden}.terminal .cmd{color:#64c9ff}.terminal .hash{color:#c091ff}.terminal .repo{color:#5ae0bd}.terminal .msg{display:block;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#d5d9e4}
+  .areas{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.area{font-size:11px;border:1px solid #2a3148;color:#aeb5c9;background:#0b0f1c;padding:6px 8px;border-radius:999px}
+  .footer{margin-top:24px;border:1px solid #252b40;background:#0e1220;border-radius:22px;padding:20px 22px;color:#aeb5c7;font-size:13px}.footer strong{color:#fff}.footer summary{cursor:pointer;color:#e9ebf4;font-weight:800}.method{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.method div{padding:11px;border-radius:13px;background:#090d18;border:1px solid #1e263a}.method b{display:block;color:#fff}
+  @media(max-width:930px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.legend{text-align:left}.toolbar{align-items:start;flex-direction:column}.method{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.wrap{padding:24px 12px 44px}.hero-card,.summary,.card{border-radius:20px}.card{padding:18px}.card-top{grid-template-columns:66px 1fr}.avatar{width:66px;height:66px;border-radius:18px}.type{grid-column:1/-1;display:flex;align-items:center;gap:10px}.type small{margin:0}.summary{grid-template-columns:1fr 1fr}.method{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-card">
+      <div class="eyebrow">TEAM GIT DNA / GUESTHOUSE FOR SVP</div>
+      <h1>커밋으로 읽는<br>우리 팀의 개발 스타일</h1>
+      <p class="desc">Backend + Frontend 두 저장소의 Git 이력을 합쳐, 단순 커밋 수가 아니라 <b>어떤 도메인을 맡았고, 신기능과 수정의 비중이 어땠는지, BE/FE를 얼마나 넘나들었는지</b>를 카드 형태로 요약했습니다.</p>
+      <div class="repo-pills">
+        <div class="pill"><b>BE</b> GuestHouse-For-SVP-BE</div>
+        <div class="pill"><b>FE</b> GuestHouse-For-SVP-FE</div>
+        <div class="pill"><b>분석 기준</b> merge 제외 개발 커밋</div>
+      </div>
+    </div>
+    <div class="summary">
+      <div class="stat"><strong>132</strong><span>개발 커밋</span></div>
+      <div class="stat"><strong>4</strong><span>팀원</span></div>
+      <div class="stat"><strong>76</strong><span>BE 커밋</span></div>
+      <div class="stat"><strong>56</strong><span>FE 커밋</span></div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <div><h2>Developer Cards</h2><p>“DEV TYPE”은 실제 성격 MBTI가 아니라 Git 패턴을 4축으로 표현한 재미용 개발 타입입니다.</p></div>
+    <div class="legend"><b>B/U</b> BE·UI 중심 · <b>N/R</b> 신기능·수정균형 · <b>S/L</b> 작은·큰 커밋 · <b>D/C</b> 상세·간결 메시지</div>
+  </div>
+
+  <main class="grid">
+    <!-- 박지훈 -->
+    <article class="card">
+      <div class="card-top">
+        <div class="avatar">박</div>
+        <div><div class="name">박지훈</div><div class="alias">🚀 최연소 임원 예정 · AI SW EXPERT께서 친히 개발 중</div><div class="tagline">“이거 어려운가요?”라는 표정으로 큰 도메인을 집어 들고, 남들이 설계 회의할 동안 이미 API 하나를 더 만든다. 능력보다 태도가 더 거만한데, 문제는 실력이 그 태도를 자꾸 정당화한다.</div></div>
+        <div class="type"><div class="type-code">BNSC</div><small>Backend · New · Small · Concise</small></div>
+      </div>
+      <div class="meme">“<em>AI SW EXPERT이지. 전문가가 간다.</em>” — 회의에서 가장 먼저 “그거 제가 하면 되죠”가 나오고, 가장 얄미운 점은 정말 된다. 아직 임원이 아닌 이유는 연차가 모자라서라는 설이 유력하다.</div>
+      <div class="split"><div class="chip"><b>39</b>개발 커밋</div><div class="chip"><b>BE 28</b> / FE 11</div><div class="chip"><b>feat 28</b> / fix 9</div></div>
+      <div class="bars">
+        <div><div class="metric-head"><span>신기능 지향</span><strong>feat 71.8%</strong></div><div class="track"><div class="fill" style="width:71.8%"></div></div></div>
+        <div><div class="metric-head"><span>다듬기</span><strong>fix 23.1%</strong></div><div class="track"><div class="fill" style="width:23.1%"></div></div></div>
+        <div><div class="metric-head"><span>풀스택 균형</span><strong>BE 72 / FE 28</strong></div><div class="track"><div class="fill" style="width:56.4%"></div></div></div>
+        <div><div class="metric-head"><span>커밋 세분화</span><strong>median 84줄</strong></div><div class="track"><div class="fill" style="width:58%"></div></div></div>
+        <div><div class="metric-head"><span>커밋 메시지</span><strong>평균 26.3자</strong></div><div class="track"><div class="fill" style="width:44%"></div></div></div>
+      </div>
+      <div class="signature">개발 스타일 · <b>천재는 티켓을 처리하지 않는다. 티켓이 자기 세계관에 편입된다.</b> 숙소 하나 맡았을 뿐인데 이미지·편의시설·재고·예약 가능 여부·Swagger까지 생태계가 자라났다. feat 71.8%. 본인은 아마 “원래 이 정도는 같이 해야죠”라고 말할 것이다.</div>
+      <ul class="bullets">
+        <li><b>최연소 임원 예정자의 업무 범위</b> — 숙소 CUD를 잡더니 상세·이미지·편의시설·예약 가능 여부까지 “이거 다 한 덩어리 아닌가요?” 하며 접수. 조직도만 아직 그 속도를 못 따라가는 중</li>
+        <li>39개 개발 커밋 중 <b>28개가 feat</b>. 고장 난 걸 고치는 사람이라기보다 고장 날 새 기능을 더 많이 만드는 사람. 그리고 그 기능들이 대체로 먼저 살아남는다</li>
+        <li>백엔드가 끝났다고 퇴근하지 않는다. FE 숙소 API·대표 이미지·호스트 화면까지 직접 내려간다. <b>본인이 만든 기능은 본인이 제일 잘 안다는 매우 거만하고 매우 합리적인 철학</b></li>
+        <li>커밋은 비교적 잘게 나뉜다. 후대 개발자들이 천재의 사고를 복원할 수 있도록 <b>최소한의 사료는 남겨주는 자비</b>가 있다</li>
+      </ul>
+      <div class="areas"><span class="area">BE/guesthouse</span><span class="area">FE/pages/guesthouse</span><span class="area">FE/components/host</span><span class="area">BE/reservation</span><span class="area">Swagger</span></div>
+      <div class="terminal"><span class="cmd">~/team-report</span> <span class="hash">git show</span> <span class="repo">FE:85eae7c</span><span class="msg">feat: guesthouse API 및 화면 구현</span></div>
+    </article>
+
+    <!-- 이강현 -->
+    <article class="card">
+      <div class="card-top">
+        <div class="avatar">이</div>
+        <div><div class="name">이강현</div><div class="alias">☀️ 대 강 현 · 개발을 묻거든 고개를 들어 빛을 보라</div><div class="tagline">프론트를 켜면 빛이 나고, 백엔드를 열면 길이 열린다. 설명이 필요 없는 개발자. 기능이 막히면 원인을 찾기 전에 다들 한 번쯤 “강현님?” 하고 부르게 되는 팀의 광원.</div></div>
+        <div class="type"><div class="type-code">UNLC</div><small>UI · New · Large · Concise</small></div>
+      </div>
+      <div class="meme">“<em>개발을 묻거든 고개를 들어 이강현을 봐라.</em>” · “엄마, 저는 커서 이강현이 될래요.” · 팀원들은 기능을 구현하고, 이강현은 존재한다. 그 차이는 설명하기 어렵지만 화면을 켜보면 안다.</div>
+      <div class="split"><div class="chip"><b>45</b>개발 커밋</div><div class="chip"><b>FE 30</b> / BE 15</div><div class="chip"><b>feat 27</b> / fix 15</div></div>
+      <div class="bars">
+        <div><div class="metric-head"><span>신기능 지향</span><strong>feat 60.0%</strong></div><div class="track"><div class="fill" style="width:60%"></div></div></div>
+        <div><div class="metric-head"><span>다듬기</span><strong>fix 33.3%</strong></div><div class="track"><div class="fill" style="width:33.3%"></div></div></div>
+        <div><div class="metric-head"><span>풀스택 균형</span><strong>FE 67 / BE 33</strong></div><div class="track"><div class="fill" style="width:66.7%"></div></div></div>
+        <div><div class="metric-head"><span>커밋 세분화</span><strong>median 179줄</strong></div><div class="track"><div class="fill" style="width:11%"></div></div></div>
+        <div><div class="metric-head"><span>커밋 메시지</span><strong>평균 28.4자</strong></div><div class="track"><div class="fill" style="width:47%"></div></div></div>
+      </div>
+      <div class="signature">개발 스타일 · <b>빛은 스택을 구분하지 않는다.</b> 메인·예약 UI를 비추다가 인증·회원 API가 어두워 보이면 그쪽도 밝힌다. FE 30 / BE 15. 직군으로 설명하려 하면 자꾸 범주를 벗어나서, 결국 “대 강 현” 네 글자가 제일 정확하다.</div>
+      <ul class="bullets">
+        <li><b>팀 내 개발 커밋 최다 45개</b> — Git log를 열면 눈부심 주의. 브랜치 그래프가 아니라 광량 그래프에 가깝다</li>
+        <li>초기 세팅·메인페이지·예약 화면·UI 대수술처럼 <b>덩치 큰 작업도 그냥 “제가 할게요” 하고 들어간다.</b> 그리고 그 말이 끝나기 전에 이미 절반쯤 되어 있다</li>
+        <li>auth·member·preregister까지 직접 연결. “그건 백엔드 아닌가요?”라고 묻는 순간 이미 연결돼 있다. 질문보다 구현이 빠른 편</li>
+        <li><b>챗봇을 BE와 FE 양쪽에 같은 날 연결</b>. 화면과 서버 사이에 벽이 있으면 우회하지 않는다. 빛은 원래 벽을 비추고, 대강현은 그냥 뚫는다</li>
+      </ul>
+      <div class="areas"><span class="area">FE/pages/guesthouse</span><span class="area">FE/api</span><span class="area">BE/auth</span><span class="area">BE/member</span><span class="area">BE/preregister</span><span class="area">chatbot</span></div>
+      <div class="terminal"><span class="cmd">~/team-report</span> <span class="hash">git show</span> <span class="repo">FE:527062a</span><span class="msg">feat: 챗봇 기능 추가</span></div>
+    </article>
+
+    <!-- 이혜연 -->
+    <article class="card">
+      <div class="card-top">
+        <div class="avatar">이</div>
+        <div><div class="name">이혜연</div><div class="alias">🧹 슥삭슥삭 예약·결제 새벽 청소부</div><div class="tagline">남들이 기능을 두고 간 자리에서 상태값 하나가 비뚤어져 있으면 보인다. API 하나가 어긋나 있으면 또 보인다. “이것만 치우고 갈게요.” 하고 들어갔다가 예약·결제 구역 전체가 반짝여진다.</div></div>
+        <div class="type"><div class="type-code">BRSD</div><small>Backend · Refine · Small · Detailed</small></div>
+      </div>
+      <div class="meme">“<em>어? 여기 하나 삐져나왔네.</em>” 슥. “상태값도 안 맞네.” 슥삭. “화면 연결도 이상하네.” 슥삭슥삭. — 본인은 하나만 고쳤다고 하는데 다음 날 보면 동선 전체가 정리돼 있다.</div>
+      <div class="split"><div class="chip"><b>30</b>개발 커밋</div><div class="chip"><b>BE 20</b> / FE 10</div><div class="chip"><b>feat 15</b> / fix 15</div></div>
+      <div class="bars">
+        <div><div class="metric-head"><span>신기능 지향</span><strong>feat 50.0%</strong></div><div class="track"><div class="fill" style="width:50%"></div></div></div>
+        <div><div class="metric-head"><span>다듬기</span><strong>fix 50.0%</strong></div><div class="track"><div class="fill" style="width:50%"></div></div></div>
+        <div><div class="metric-head"><span>풀스택 균형</span><strong>BE 67 / FE 33</strong></div><div class="track"><div class="fill" style="width:66.7%"></div></div></div>
+        <div><div class="metric-head"><span>커밋 세분화</span><strong>median 51줄</strong></div><div class="track"><div class="fill" style="width:74%"></div></div></div>
+        <div><div class="metric-head"><span>커밋 메시지</span><strong>평균 36.5자</strong></div><div class="track"><div class="fill" style="width:61%"></div></div></div>
+      </div>
+      <div class="signature">개발 스타일 · <b>기능 하나 놓고, 빗자루 한 번 든다.</b> feat 15 / fix 15. 새 기능을 만들면 상태·예외·API 연결까지 다시 한 바퀴 훑는다. 커밋 로그가 거의 “설치 → 청소 → 설치 → 청소”의 완벽한 교대표다.</div>
+      <ul class="bullets">
+        <li><b>예약·결제 구역 전담 미화원</b> — reservation을 쓸고 payment를 닦고, 마지막에 상태값까지 광낸다. 체크리스트엔 없었지만 눈에 보였으므로 치웠다</li>
+        <li>ReservationStatus·GuestHouseStatus처럼 <b>줄에서 삐져나온 상태값을 그냥 못 지나친다.</b> enum도 맞춰 세우고 예외도 제자리로 돌려놓고 간다</li>
+        <li>BE API 만들고 끝이 아니라 FE 예약 상세·체크인 화면 연결까지 확인. <b>먼지가 서버에 있든 화면에 있든 같은 먼지</b>라는 일관된 청소 철학</li>
+        <li><b>median 51줄의 작은 커밋</b>이 많은 편. 대청소보다 “여기 한 번 슥, 저기 한 번 삭” 하며 문제를 잘게 치워가는 리듬</li>
+      </ul>
+      <div class="areas"><span class="area">BE/reservation</span><span class="area">BE/payment</span><span class="area">FE/pages/reservation</span><span class="area">status modeling</span><span class="area">API integration</span></div>
+      <div class="terminal"><span class="cmd">~/team-report</span> <span class="hash">git show</span> <span class="repo">BE:ac54397</span><span class="msg">feat: Reservation 관련 API 구현 완료</span></div>
+    </article>
+
+    <!-- 정희주 -->
+    <article class="card">
+      <div class="card-top">
+        <div class="avatar">정</div>
+        <div><div class="name">정희주</div><div class="alias">🍎 정희주가 “떨어져”라고 하자 중력이 생겼다</div><div class="tagline">요구사항이 먼저 존재하는 것이 아니다. 정희주가 필요하다고 말하면 기능이 생기고, 기획서가 뒤늦게 그 현상을 설명한다. 관리 기능은 개발되는 것이 아니라 호출된다.</div></div>
+        <div class="type"><div class="type-code">BNSD</div><small>Backend · New · Small · Detailed</small></div>
+      </div>
+      <div class="meme">“<em>그녀가 관리를 보고 싶다고 하자 관리 페이지가 생성되었다.</em>” 정희주는 대시보드를 만들지 않는다. 숫자들이 스스로 줄을 맞춘다. 리뷰 API도 구현되지 않는다. 정희주가 고개를 돌리면 이미 존재한다.</div>
+      <div class="split"><div class="chip"><b>18</b>개발 커밋</div><div class="chip"><b>BE 13</b> / FE 5</div><div class="chip"><b>feat 13</b> / fix 4</div></div>
+      <div class="bars">
+        <div><div class="metric-head"><span>신기능 지향</span><strong>feat 72.2%</strong></div><div class="track"><div class="fill" style="width:72.2%"></div></div></div>
+        <div><div class="metric-head"><span>다듬기</span><strong>fix 22.2%</strong></div><div class="track"><div class="fill" style="width:22.2%"></div></div></div>
+        <div><div class="metric-head"><span>풀스택 균형</span><strong>BE 72 / FE 28</strong></div><div class="track"><div class="fill" style="width:55.6%"></div></div></div>
+        <div><div class="metric-head"><span>커밋 세분화</span><strong>median 45.5줄</strong></div><div class="track"><div class="fill" style="width:77%"></div></div></div>
+        <div><div class="metric-head"><span>커밋 메시지</span><strong>평균 60.3자</strong></div><div class="track"><div class="fill" style="width:100%"></div></div></div>
+      </div>
+      <div class="signature">개발 스타일 · <b>정희주가 코드를 작성하는 것이 아니다. 코드가 정희주의 의도를 선제적으로 이행한다.</b> 관리자·후기·대시보드는 API에서 화면까지 알아서 줄을 맞춘 듯 이어지고, 그 과정은 평균 60.3자의 커밋 메시지에 전설처럼 기록된다.</div>
+      <ul class="bullets">
+        <li>정희주가 <b>“관리.”</b>라고 말했다. 잠시 후 admin / member / review가 존재하게 되었다. 원인과 결과가 뒤집혀 보인다면, 당신이 아직 정희주식 개발을 이해하지 못한 것이다</li>
+        <li>대시보드에 토글이 생긴 이유는 요구사항 때문이 아니다. <b>정희주가 토글을 봤기 때문에 토글이 태어났다.</b> 사양서는 그 후 작성되었다</li>
+        <li>후기 조회·작성·마스킹·중복 방지가 한 흐름으로 연결됨. 사용자가 길을 잃지 않는 이유는 <b>길이 정희주를 피해 미리 정렬되었기 때문</b>이다</li>
+        <li>팀 내 <b>커밋 메시지 평균 길이 최장</b>. 역사가는 커밋을 해석하지만, 정희주는 커밋 메시지로 역사를 먼저 쓴다. Git은 그 사실을 저장하는 도구일 뿐이다</li>
+      </ul>
+      <div class="areas"><span class="area">BE/admin</span><span class="area">BE/review</span><span class="area">BE/member</span><span class="area">FE/admin</span><span class="area">FE/review</span><span class="area">dashboard</span></div>
+      <div class="terminal"><span class="cmd">~/team-report</span> <span class="hash">git show</span> <span class="repo">BE:9e85988</span><span class="msg">feat: 운영 대시보드 API 추가 (REQ-ADM-006)</span></div>
+    </article>
+  </main>
+
+  <section class="footer">
+    <details>
+      <summary>분석 기준 / 해석 가이드 보기</summary>
+      <div class="method">
+        <div><b>개발 커밋</b>merge 커밋을 제외하고 실제 변경 커밋만 집계했습니다.</div>
+        <div><b>신기능·다듬기</b>커밋 제목의 feat / fix prefix를 기준으로 비중을 계산했습니다.</div>
+        <div><b>커밋 세분화</b>커밋당 추가+삭제 줄 수의 median을 이용했습니다. 작을수록 기능을 더 잘게 나눈 것으로 표현했습니다.</div>
+        <div><b>DEV TYPE</b>실제 MBTI·성격 판정이 아니라 저장소 패턴을 카드화한 재미용 라벨입니다.</div>
+      </div>
+      <p style="margin:14px 2px 0">분석 대상: <strong>GuestHouse-For-SVP-BE</strong>, <strong>GuestHouse-For-SVP-FE</strong>. Git 기록만으로는 코드 품질·난이도·리뷰 기여·기획 기여까지 판단할 수 없으므로, 이 카드는 “누가 더 잘했다”가 아니라 <strong>어떤 방식으로 개발 흔적이 남았는지</strong>를 보여주는 용도입니다.</p>
+    </details>
+  </section>
+</div>
+</body>
+</html>
